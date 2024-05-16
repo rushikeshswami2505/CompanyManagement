@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CompanyManagement</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CompanyManagement.styles.css" asp-append-version="true" />
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CompanyManagement</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Employee")">Employee Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Project Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Leave Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Role Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Employee Role</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Employee Project</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+</body>
+</html>

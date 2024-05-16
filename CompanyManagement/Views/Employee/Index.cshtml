@@ -1,0 +1,52 @@
+﻿@model IEnumerable<CompanyManagement.Data.EmployeeDetails>
+@{
+    ViewData["Title"] = "Employee Index";
+}
+
+<br />
+<div class="d-flex justify-content-between">
+    <div>
+        <h1>Employee Details</h1>
+    </div>
+    <div>
+        <a href="@Url.Action("AddEmployee", "Employee")" class="btn btn-primary">Add New Employee</a>
+    </div>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date of Birth</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Country</th>
+            <th>Blood Group</th>
+            <th>Contact</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@employee.empId</td>
+                <td>@employee.empName</td>
+                <td>@employee.empDob.ToString("yyyy-MM-dd")</td>
+                <td>@employee.empCity</td>
+                <td>@employee.empState</td>
+                <td>@employee.empCountry</td>
+                <td>@employee.empBloodGroup</td>
+                <td>@employee.empContact</td>
+                <td>
+                    <a href="@Url.Action("EditEmployee", "Employee", new { id = employee.empId })" class="btn btn-primary">Edit</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("DeleteEmployee", "Employee", new { id = employee.empId })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

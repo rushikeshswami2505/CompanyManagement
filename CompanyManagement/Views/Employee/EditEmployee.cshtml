@@ -1,0 +1,53 @@
+﻿@model CompanyManagement.Models.EmployeeDetailsModel
+@{
+    ViewData["Title"] = "EditEmployee";
+}
+
+<h2>Edit Employee</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form action="@Url.Action("EditEmployee", "Employee")" method="post">
+            @Html.HiddenFor(model => model.empId)
+            <div class="form-group">
+                <label for="empName" class="control-label">Employee Name:</label>
+                <input type="text" id="empName" name="empName" class="form-control" value="@Model.empName" />
+                @Html.ValidationMessageFor(model => Model.empName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="empDob" class="control-label">Date of Birth:</label>
+                <input type="date" id="empDob" name="empDob" class="form-control" value="@Model.empDob.ToString("yyyy-MM-dd")" />
+                @Html.ValidationMessageFor(model => Model.empDob, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="empCity" class="control-label">City:</label>
+                <input type="text" id="empCity" name="empCity" class="form-control" value="@Model.empCity" />
+                @Html.ValidationMessageFor(model => Model.empCity, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="empState" class="control-label">State:</label>
+                <input type="text" id="empState" name="empState" class="form-control" value="@Model.empState" />
+                @Html.ValidationMessageFor(model => Model.empState, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="empCountry" class="control-label">Country:</label>
+                <input type="text" id="empCountry" name="empCountry" class="form-control" value="@Model.empCountry" />
+                @Html.ValidationMessageFor(model => Model.empCountry, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="empBloodGroup" class="control-label">Blood Group:</label>
+                <input type="text" id="empBloodGroup" name="empBloodGroup" class="form-control" value="@Model.empBloodGroup" />
+                @Html.ValidationMessageFor(model => Model.empBloodGroup, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="empContact" class="control-label">Contact:</label>
+                <input type="text" id="empContact" name="empContact" class="form-control" value="@Model.empContact" />
+                @Html.ValidationMessageFor(model => Model.empContact, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save Edit</button>
+                <a href="@Url.Action("Edit", "Employee")" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
