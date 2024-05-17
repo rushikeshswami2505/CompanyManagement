@@ -1,0 +1,43 @@
+﻿@model CompanyManagement.Models.LeaveDetailsModel
+
+@{
+    ViewData["Title"] = "Add Leave";
+}
+
+<h2>Add Leave</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form action="@Url.Action("AddLeave", "Leave")" method="post">
+            <div class="form-group">
+                <label for="empId" class="control-label">Employee Id:</label>
+                <input type="text" id="empId" name="empId" class="form-control" />
+                @Html.ValidationMessageFor(model => model.empId, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="leavePaidRemain" class="control-label">Paid Leave Remain:</label>
+                <input type="number" id="leavePaidRemain" name="leavePaidRemain" class="form-control" />
+                @Html.ValidationMessageFor(model => model.leavePaidRemain, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="leavePaidTaken" class="control-label">Paid Leave Taken:</label>
+                <input type="number" id="leavePaidTaken" name="leavePaidTaken" class="form-control" />
+                @Html.ValidationMessageFor(model => model.leavePaidTaken, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="leaveLOP" class="control-label">Loss of pay leave:</label>
+                <input type="number" id="leaveLOP" name="leaveLOP" class="form-control" />
+                @Html.ValidationMessageFor(model => model.leaveLOP, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Add Leave" />
+            </div>
+        </form>
+
+    </div>
+</div>
+<br />
+<div>
+    <a href="@Url.Action("Index", "Leave")">Back to List</a>
+</div>

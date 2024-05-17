@@ -1,0 +1,39 @@
+﻿@model CompanyManagement.Models.ProjectDetailsModel
+@{
+    ViewData["Title"] = "EditProject";
+}
+
+<h1>Edit Project</h1>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form action="@Url.Action("EditProject", "Project")" method="post">
+            @Html.HiddenFor(model => model.projectId)
+            <div class="form-group">
+                <label for="projectName" class="control-label">Project Name:</label>
+                <input type="text" id="projectName" name="projectName" class="form-control" value="@Model.projectName" />
+                @Html.ValidationMessageFor(model => Model.projectName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="projectStartDate" class="control-label">Start Date:</label>
+                <input type="date" id="projectStartDate" name="projectStartDate" class="form-control" value="@Model.projectStartDate.ToString("yyyy-MM-dd")" />
+                @Html.ValidationMessageFor(model => Model.projectStartDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="projectDueDate" class="control-label">Due Date:</label>
+                <input type="date" id="projectDueDate" name="projectDueDate" class="form-control" value="@Model.projectDueDate.ToString("yyyy-MM-dd")" />
+                @Html.ValidationMessageFor(model => Model.projectDueDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="projectNumResource" class="control-label">Number of resources:</label>
+                <input type="number" id="projectNumResource" name="projectNumResource" class="form-control" value="@Model.projectNumResource" />
+                @Html.ValidationMessageFor(model => Model.projectNumResource, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save Edit</button>
+                <a href="@Url.Action("Index", "Project")" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+

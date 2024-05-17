@@ -11,6 +11,8 @@ var provider = builder.Services.BuildServiceProvider();
 var config = provider.GetRequiredService<IConfiguration>();
 builder.Services.AddDbContext<Context>(item => item.UseSqlServer(config.GetConnectionString("dbcs")));
 builder.Services.AddTransient<IEmployeeDetails, EmployeeDetailsServices>();
+builder.Services.AddTransient<IProjectDetails, ProjectDetailsServices>();
+builder.Services.AddTransient<ILeaveDetails, LeaveDetailsServices>();
 
 var app = builder.Build();
 

@@ -5,9 +5,10 @@ namespace CompanyManagement.Services
 {
     public interface IEmployeeDetails
     {
-        void AddNewEmployee(EmployeeDetailsModel employeeDetailsModel);
-        void EditEmployee(EmployeeDetailsModel model);
-        List<EmployeeDetails> GetAllEmployees();
-        EmployeeDetailsModel GetEmployeeDetailsById(int id);
+        Task AddNewEmployee(EmployeeDetailsModel employeeDetailsModel);
+        Task DeleteEmployee(int id);
+        Task EditEmployee(EmployeeDetailsModel model);
+        Task<List<EmployeeDetails>> GetAllEmployees();
+        Task<EmployeeDetailsModel> GetEmployeeDetailsById(int id);
     }
 }

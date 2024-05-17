@@ -8,7 +8,7 @@ namespace CompanyManagement.Data
         public int projectId { get; set; }
         public string projectName { get; set; }
         public DateTime projectStartDate { get; set; }
-        public DateTime ProjectDueDate { get; set; }
+        public DateTime projectDueDate { get; set; }
         public int projectNumResource { get; set; }
     }
 }

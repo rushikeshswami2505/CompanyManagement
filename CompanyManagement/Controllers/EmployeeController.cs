@@ -6,15 +6,15 @@ namespace CompanyManagement.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IEmployeeDetails _employeeDetailsServices;
+        private readonly IEmployeeDetails employeeDetailsServices;
         public EmployeeController(IEmployeeDetails employeeDetailsServices)
         {
-            _employeeDetailsServices = employeeDetailsServices;
+            this.employeeDetailsServices = employeeDetailsServices;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var data = _employeeDetailsServices.GetAllEmployees();
+            var data = await employeeDetailsServices.GetAllEmployees();
             return View(data);
         }
 
@@ -23,32 +23,34 @@ namespace CompanyManagement.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddEmployee(EmployeeDetailsModel model)
+        public async Task<IActionResult> AddEmployee(EmployeeDetailsModel model)
         {
             if (ModelState.IsValid)
             {
-                _employeeDetailsServices.AddNewEmployee(model);
+                await employeeDetailsServices.AddNewEmployee(model);
                 return RedirectToAction("Index");
             }
             return View(model);
         }
 
-        public IActionResult DeleteEmployee()
+        
+        public async Task<IActionResult> DeleteEmployee(int id)
         {
-            return View();
+            await employeeDetailsServices.DeleteEmployee(id);
+            return RedirectToAction("Index");
         }
 
-        public IActionResult EditEmployee(int id)
+        public async Task<IActionResult> EditEmployee(int id)
         {
-            EmployeeDetailsModel model = _employeeDetailsServices.GetEmployeeDetailsById(id);
+            EmployeeDetailsModel model = await employeeDetailsServices.GetEmployeeDetailsById(id);
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult EditEmployee(EmployeeDetailsModel model)
+        public async Task<IActionResult> EditEmployee(EmployeeDetailsModel model)
         {
             if (ModelState.IsValid) {
-                _employeeDetailsServices.EditEmployee(model);
+                await employeeDetailsServices.EditEmployee(model);
                 return RedirectToAction("index");
             }
             return View(model);

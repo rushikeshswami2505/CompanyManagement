@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CompanyManagement.Data.ProjectDetails>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<div class="d-flex justify-content-between">
+    <div>
+        <h1>Project Details</h1>
+    </div>
+    <div>
+        <a href="@Url.Action("AddProject", "Project")" class="btn btn-primary">Add New Project</a>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Project Name</th>
+            <th>Start Date</th>
+            <th>Due Date</th>
+            <th>Number of rosources</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model)
+        {
+            <tr>
+                <td>@project.projectId</td>
+                <td>@project.projectName</td>
+                <td>@project.projectStartDate.ToString("yyyy-MM-dd")</td>
+                <td>@project.projectDueDate.ToString("yyyy-MM-dd")</td>
+                <td>@project.projectNumResource</td>
+                <td>
+                    <a href="@Url.Action("EditProject", "Project", new { id = project.projectId })" class="btn btn-primary">Edit</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("DeleteProject", "Project", new { id = project.projectId })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

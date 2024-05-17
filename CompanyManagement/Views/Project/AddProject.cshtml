@@ -1,0 +1,43 @@
+﻿@model CompanyManagement.Models.ProjectDetailsModel
+
+@{
+    ViewData["Title"] = "Add Project";
+}
+
+<h2>Add Project</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form action="@Url.Action("AddProject", "Project")" method="post">
+            <div class="form-group">
+                <label for="projectName" class="control-label">Project Name:</label>
+                <input type="text" id="projectName" name="projectName" class="form-control" />
+                @Html.ValidationMessageFor(model => model.projectName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="projectStartDate" class="control-label">Start Date:</label>
+                <input type="date" id="projectStartDate" name="projectStartDate" class="form-control" />
+                @Html.ValidationMessageFor(model => model.projectStartDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="projectDueDate" class="control-label">Due Date:</label>
+                <input type="date" id="projectDueDate" name="projectDueDate" class="form-control" />
+                @Html.ValidationMessageFor(model => model.projectDueDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="projectNumResource" class="control-label">Number of Resources:</label>
+                <input type="number" id="projectNumResource" name="projectNumResource" class="form-control" />
+                @Html.ValidationMessageFor(model => model.projectNumResource, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Add Project" />
+            </div>
+        </form>
+
+    </div>
+</div>
+<br />
+<div>
+    <a href="@Url.Action("Index", "Project")">Back to List</a>
+</div>

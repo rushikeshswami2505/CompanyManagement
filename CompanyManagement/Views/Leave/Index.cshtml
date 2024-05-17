@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CompanyManagement.Data.LeaveDetails>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<div class="d-flex justify-content-between">
+    <div>
+        <h1>Leave Details</h1>
+    </div>
+    <div>
+        <a href="@Url.Action("AddLeave", "Leave")" class="btn btn-primary">Add New Leave</a>
+    </div>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Leave ID</th>
+            <th>Employee ID</th>
+            <th>Paid leave remain</th>
+            <th>Paid leave taken</th>
+            <th>Loss of pay leave</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var leave in Model)
+        {
+            <tr>
+                <td>@leave.leaveId</td>
+                <td>@leave.empId</td>
+                <td>@leave.leavePaidRemain</td>
+                <td>@leave.leavePaidTaken</td>
+                <td>@leave.leaveLOP</td>
+                <td>
+                    <a href="@Url.Action("EditLeave", "Leave", new { id = leave.leaveId })" class="btn btn-primary">Edit</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("DeleteLeave", "Leave", new { id = leave.leaveId })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

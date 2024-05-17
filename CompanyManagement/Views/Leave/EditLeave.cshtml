@@ -1,0 +1,38 @@
+﻿@model CompanyManagement.Models.LeaveDetailsModel
+@{
+    ViewData["Title"] = "Edit Leave";
+}
+
+<h2>Edit Leave</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form action="@Url.Action("EditLeave", "Leave")" method="post">
+            @Html.HiddenFor(model => model.leaveId)
+            <div class="form-group">
+                <label for="empId" class="control-label">Employee Id:</label>
+                <input type="number" id="empId" name="empId" class="form-control" value="@Model.empId" />
+                @Html.ValidationMessageFor(model => Model.empId, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="leavePaidRemain" class="control-label">Paid leave remain</label>
+                <input type="number" id="leavePaidRemain" name="leavePaidRemain" class="form-control" value="@Model.leavePaidRemain" />
+                @Html.ValidationMessageFor(model => Model.leavePaidRemain, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="leavePaidTaken" class="control-label">Paid leave taken:</label>
+                <input type="number" id="leavePaidTaken" name="leavePaidTaken" class="form-control" value="@Model.leavePaidTaken" />
+                @Html.ValidationMessageFor(model => Model.leavePaidTaken, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="leaveLOP" class="control-label">Loss of pay taken:</label>
+                <input type="number" id="leaveLOP" name="leaveLOP" class="form-control" value="@Model.leaveLOP" />
+                @Html.ValidationMessageFor(model => Model.leaveLOP, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save Edit</button>
+                <a href="@Url.Action("Index", "Leave")" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

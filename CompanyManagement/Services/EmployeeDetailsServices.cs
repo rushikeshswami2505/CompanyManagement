@@ -12,35 +12,37 @@ namespace CompanyManagement.Services
         {
             db = context;
         }
-        public List<EmployeeDetails> GetAllEmployees()
+        public async Task <List<EmployeeDetails>> GetAllEmployees()
         {
-            return db.EmployeeDetails.ToList();
+            return await db.EmployeeDetails.ToListAsync();
         }
 
-        public void AddNewEmployee(EmployeeDetailsModel model)
+        public async Task AddNewEmployee(EmployeeDetailsModel model)
         {
             EmployeeDetails employeeDetails = ModelToEmployeeDetails(model);
-            db.EmployeeDetails.Add(employeeDetails);
-            db.SaveChanges();
+            await db.EmployeeDetails.AddAsync(employeeDetails);
+            await db.SaveChangesAsync();
         }
 
 
-        public EmployeeDetailsModel GetEmployeeDetailsById(int id)
+        public async Task<EmployeeDetailsModel> GetEmployeeDetailsById(int id)
         {
-            var row = db.EmployeeDetails.Where(i => i.empId ==  id).FirstOrDefault();
+            var row = await db.EmployeeDetails.Where(i => i.empId ==  id).FirstOrDefaultAsync();
+            if (row == null) return null;
             EmployeeDetailsModel model = EmployeeDetailsToModel(row);
             return model;
         }
-        public void EditEmployee(EmployeeDetailsModel model)
+        public async Task EditEmployee(EmployeeDetailsModel model)
         {
             EmployeeDetails employeeDetails = ModelToEmployeeDetails(model);
             db.Entry(employeeDetails).State = EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
         private EmployeeDetailsModel EmployeeDetailsToModel(EmployeeDetails? row)
         {
             EmployeeDetailsModel model = new EmployeeDetailsModel();
+            model.empId = row.empId;
             model.empName = row.empName;
             model.empCity = row.empCity;
             model.empContact = row.empContact;
@@ -50,9 +52,18 @@ namespace CompanyManagement.Services
             model.empState = row.empState;
             return model;
         }
+
+        public async Task DeleteEmployee(int id)
+        {
+            var row = await db.EmployeeDetails.FindAsync(id);
+            if(row==null) return;
+            db.EmployeeDetails.Remove(row);
+            await db.SaveChangesAsync();
+        }
         private EmployeeDetails ModelToEmployeeDetails(EmployeeDetailsModel model)
         {
             EmployeeDetails employeeDetails = new EmployeeDetails();
+            employeeDetails.empId = model.empId;
             employeeDetails.empName = model.empName;
             employeeDetails.empBloodGroup = model.empBloodGroup;
             employeeDetails.empCity = model.empCity;
@@ -63,5 +74,6 @@ namespace CompanyManagement.Services
             return employeeDetails;
         }
 
+        
     }
 }
