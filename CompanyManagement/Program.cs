@@ -13,6 +13,7 @@ builder.Services.AddDbContext<Context>(item => item.UseSqlServer(config.GetConne
 builder.Services.AddTransient<IEmployeeDetails, EmployeeDetailsServices>();
 builder.Services.AddTransient<IProjectDetails, ProjectDetailsServices>();
 builder.Services.AddTransient<ILeaveDetails, LeaveDetailsServices>();
+builder.Services.AddTransient<IEmployeeLeave, EmployeeLeaveServices>();
 
 var app = builder.Build();
 

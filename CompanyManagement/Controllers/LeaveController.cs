@@ -1,4 +1,5 @@
-﻿using CompanyManagement.Models;
+﻿using CompanyManagement.Data;
+using CompanyManagement.Models;
 using CompanyManagement.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,9 +8,11 @@ namespace CompanyManagement.Controllers
     public class LeaveController : Controller
     {
         private readonly ILeaveDetails leaveDetailsServices;
-        public LeaveController(ILeaveDetails leaveDetailsServices)
+        private readonly IEmployeeLeave employeeLeaveServices;
+        public LeaveController(ILeaveDetails leaveDetailsServices, IEmployeeLeave employeeLeaveServices)
         {
             this.leaveDetailsServices = leaveDetailsServices;
+            this.employeeLeaveServices = employeeLeaveServices;
         }
         public async Task<IActionResult> Index()
         {
@@ -50,6 +53,23 @@ namespace CompanyManagement.Controllers
         {
             await leaveDetailsServices.DeleteLeave(id);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult ApplyLeave()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ApplyLeave(EmployeeLeavesModel model)
+        {
+            model.empId = 1;
+
+            if (ModelState.IsValid)
+            {
+                await employeeLeaveServices.AddNewLeave(model);
+                return RedirectToAction("Index");
+            }
+            return View();
         }
     }
 }

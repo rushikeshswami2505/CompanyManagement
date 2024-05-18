@@ -20,6 +20,7 @@
             <th>Start Date</th>
             <th>Due Date</th>
             <th>Number of rosources</th>
+            <th>Resources</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -33,6 +34,9 @@
                 <td>@project.projectStartDate.ToString("yyyy-MM-dd")</td>
                 <td>@project.projectDueDate.ToString("yyyy-MM-dd")</td>
                 <td>@project.projectNumResource</td>
+                <td>
+                    <a href="@Url.Action("ResourcesProject", "Project", new { id = project.projectId })" class="btn btn-success">Show Employees</a>
+                </td>
                 <td>
                     <a href="@Url.Action("EditProject", "Project", new { id = project.projectId })" class="btn btn-primary">Edit</a>
                 </td>

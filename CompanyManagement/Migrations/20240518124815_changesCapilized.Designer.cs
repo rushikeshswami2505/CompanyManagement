@@ -4,6 +4,7 @@ using CompanyManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CompanyManagement.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240518124815_changesCapilized")]
+    partial class changesCapilized
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,32 +63,6 @@ namespace CompanyManagement.Migrations
                     b.HasKey("empId");
 
                     b.ToTable("EmployeeDetails");
-                });
-
-            modelBuilder.Entity("CompanyManagement.Data.EmployeeLeave", b =>
-                {
-                    b.Property<int>("employeeLeaveId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("employeeLeaveId"));
-
-                    b.Property<int>("empId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("leaveEndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("leaveReason")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("leaveStartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("employeeLeaveId");
-
-                    b.ToTable("EmployeeLeaves");
                 });
 
             modelBuilder.Entity("CompanyManagement.Data.EmployeeProjectMap", b =>

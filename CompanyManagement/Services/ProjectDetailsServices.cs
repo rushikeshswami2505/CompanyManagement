@@ -47,6 +47,25 @@ namespace CompanyManagement.Services
             return model;
 
         }
+
+        public async Task AddEmployeeToProject(int projectId, int empId)
+        {
+            var existingRecord = await db.EmployeeProjectMaps.FirstOrDefaultAsync(e => e.empId == empId && e.projectId == projectId);
+            if (existingRecord != null)  return;
+            EmployeeProjectMap employeeProjectMap = ValuesToEmployeeProjectMap(projectId,empId);
+            await db.EmployeeProjectMaps.AddAsync(employeeProjectMap);
+            await db.SaveChangesAsync();
+        }
+
+
+        private EmployeeProjectMap ValuesToEmployeeProjectMap(int projectId,int empId)
+        {
+            EmployeeProjectMap employeeProjectMap = new EmployeeProjectMap();
+            employeeProjectMap.empId = empId;
+            employeeProjectMap.projectId = projectId;
+            return employeeProjectMap;
+        }
+
         private ProjectDetails ModelToProjectDetails(ProjectDetailsModel model)
         {
             ProjectDetails projectDetails = new ProjectDetails();
@@ -66,6 +85,15 @@ namespace CompanyManagement.Services
             model.projectDueDate = projectDetails.projectDueDate;
             model.projectNumResource = projectDetails.projectNumResource;
             return model;
+        }
+
+        public async Task RemoveEmployeeFromProject(int projectId, int empId)
+        {
+            var employeeProjectMap = 
+                await db.EmployeeProjectMaps.FirstOrDefaultAsync(i => i.projectId == projectId && i.empId == empId);
+            if (employeeProjectMap == null) return;
+            db.EmployeeProjectMaps.Remove(employeeProjectMap);
+            await db.SaveChangesAsync();
         }
     }
 }

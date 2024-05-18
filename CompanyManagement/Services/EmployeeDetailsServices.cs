@@ -39,6 +39,24 @@ namespace CompanyManagement.Services
             await db.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<EmployeeDetails>> GetAllEmployeesByProjectId(int projectId)
+        {
+            var employees = await (from emp in db.EmployeeDetails
+                                   join empProj in db.EmployeeProjectMaps on emp.empId equals empProj.empId
+                                   where empProj.projectId == projectId
+                                   select emp).ToListAsync();
+
+            return employees;
+        }
+
+        public async Task DeleteEmployee(int id)
+        {
+            var row = await db.EmployeeDetails.FindAsync(id);
+            if (row == null) return;
+            db.EmployeeDetails.Remove(row);
+            await db.SaveChangesAsync();
+        }
+
         private EmployeeDetailsModel EmployeeDetailsToModel(EmployeeDetails? row)
         {
             EmployeeDetailsModel model = new EmployeeDetailsModel();
@@ -53,13 +71,7 @@ namespace CompanyManagement.Services
             return model;
         }
 
-        public async Task DeleteEmployee(int id)
-        {
-            var row = await db.EmployeeDetails.FindAsync(id);
-            if(row==null) return;
-            db.EmployeeDetails.Remove(row);
-            await db.SaveChangesAsync();
-        }
+
         private EmployeeDetails ModelToEmployeeDetails(EmployeeDetailsModel model)
         {
             EmployeeDetails employeeDetails = new EmployeeDetails();
@@ -74,6 +86,5 @@ namespace CompanyManagement.Services
             return employeeDetails;
         }
 
-        
     }
 }

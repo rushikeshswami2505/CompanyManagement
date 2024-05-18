@@ -1,0 +1,70 @@
+﻿@model CompanyManagement.Models.ProjectWithEmployees
+@{
+    ViewData["Title"] = "ResourcesProject";
+}
+
+<h1>Resources Project</h1>
+@if (Model.Project != null)
+{
+    <div>
+        <p><strong>Project Name:</strong> @Model.Project.projectName</p>
+        <p><strong>Start Date:</strong> @Model.Project.projectStartDate.ToString("d")</p>
+        <p><strong>Due Date:</strong> @Model.Project.projectDueDate.ToString("d")</p>
+        <p><strong>Number of Resources:</strong> @Model.Project.projectNumResource</p>
+    </div>
+    <h2>Assigned Employees</h2>
+    <form action="@Url.Action("AddNewEmployeeToProject", "Project", new { projectId = Model.Project.projectId })" method="post">
+        <div class="form-group">
+            <label for="empId" class="control-label">Employee Id:</label>
+            <input type="number" id="empId" name="empId" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </form>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Employee Name</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Country</th>
+                <th>Contact</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Employees != null && Model.Employees.Any())
+            {
+                @foreach (var employee in Model.Employees)
+                {
+                    <tr>
+                        <td>@employee.empId</td>
+                        <td>@employee.empName</td>
+                        <td>@employee.empCity</td>
+                        <td>@employee.empState</td>
+                        <td>@employee.empCountry</td>
+                        <td>@employee.empContact</td>
+                        <td>
+                            <a href="@Url.Action("RemoveEmployeeFromProject", "Project", new { empId = employee.empId, projectId = Model.Project.projectId})" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">No employees assigned to this project.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+
+    <p>Project not found.</p>
+    <p>Project id : @ViewBag.projectId</p>
+    <p>Employee id : @ViewBag.empId</p>
+}

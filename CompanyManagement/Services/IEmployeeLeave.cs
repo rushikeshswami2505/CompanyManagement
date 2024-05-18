@@ -3,13 +3,13 @@ using CompanyManagement.Models;
 
 namespace CompanyManagement.Services
 {
-    public interface IEmployeeDetails
+    public interface IEmployeeLeave
     {
-        Task AddNewEmployee(EmployeeDetailsModel employeeDetailsModel);
-        Task DeleteEmployee(int id);
+        Task AddNewLeave(EmployeeLeavesModel model);
+        /*Task DeleteEmployee(int id);
         Task EditEmployee(EmployeeDetailsModel model);
         Task<List<EmployeeDetails>> GetAllEmployees();
         Task<IEnumerable<EmployeeDetails>> GetAllEmployeesByProjectId(int id);
-        Task<EmployeeDetailsModel> GetEmployeeDetailsById(int id);
+        Task<EmployeeDetailsModel> GetEmployeeDetailsById(int id);*/
     }
 }
