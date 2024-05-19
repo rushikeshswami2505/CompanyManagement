@@ -14,6 +14,7 @@ builder.Services.AddTransient<IEmployeeDetails, EmployeeDetailsServices>();
 builder.Services.AddTransient<IProjectDetails, ProjectDetailsServices>();
 builder.Services.AddTransient<ILeaveDetails, LeaveDetailsServices>();
 builder.Services.AddTransient<IEmployeeLeave, EmployeeLeaveServices>();
+builder.Services.AddTransient<IRoleDetails, RoleDetailsServices>();
 
 var app = builder.Build();
 

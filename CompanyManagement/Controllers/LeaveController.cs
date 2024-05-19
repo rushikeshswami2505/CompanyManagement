@@ -62,7 +62,7 @@ namespace CompanyManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> ApplyLeave(EmployeeLeavesModel model)
         {
-            model.empId = 1;
+            model.empId = 4;
 
             if (ModelState.IsValid)
             {

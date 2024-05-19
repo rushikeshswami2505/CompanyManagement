@@ -1,5 +1,6 @@
 ﻿using CompanyManagement.Data;
 using CompanyManagement.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CompanyManagement.Services
 {
@@ -13,6 +14,38 @@ namespace CompanyManagement.Services
         {
             EmployeeLeave employeeLeave = ModelToEmployeeLeave(model);
             await db.EmployeeLeaves.AddAsync(employeeLeave);
+
+            int leaveDuration = (model.leaveEndDate - model.leaveStartDate).Days + 1;
+            var leaveDetails = await db.LeaveDetails.FirstOrDefaultAsync(ld => ld.empId == model.empId);
+            if (leaveDetails != null)
+            {
+                if(leaveDetails.leavePaidRemain < leaveDuration)
+                {
+                    leaveDetails.leaveLOP = leaveDuration - leaveDetails.leavePaidRemain;
+                    leaveDetails.leavePaidRemain = 0;
+                    leaveDetails.leavePaidTaken = 20;
+
+                }
+                else
+                {
+                    leaveDetails.leavePaidTaken += leaveDuration;
+                    leaveDetails.leavePaidRemain -= leaveDuration;
+                }
+            }
+            else
+            {
+                leaveDetails = new LeaveDetails
+                {
+                    empId = model.empId,
+                    leavePaidRemain = 20 - leaveDuration,
+                    leavePaidTaken = leaveDuration,
+                    leaveLOP = 0 
+                };
+                await db.LeaveDetails.AddAsync(leaveDetails);
+            }
+
+            await db.SaveChangesAsync();
+
             await db.SaveChangesAsync();
         }
 

@@ -9,10 +9,10 @@ namespace CompanyManagement.Controllers
     {
         private readonly IProjectDetails projectDetailsServices;
         private readonly IEmployeeDetails employeeDetailsServices;
-        public ProjectController(IProjectDetails projectDetailsServices,IEmployeeDetails employeeDetailsService)
+        public ProjectController(IProjectDetails projectDetailsServices,IEmployeeDetails employeeDetailsServices)
         {
             this.projectDetailsServices = projectDetailsServices;
-            this.employeeDetailsServices = employeeDetailsService;
+            this.employeeDetailsServices = employeeDetailsServices;
         }
         public async Task<IActionResult> Index()
         {

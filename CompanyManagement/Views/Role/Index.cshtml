@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CompanyManagement.Data.RoleDetails>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<div class="d-flex justify-content-between">
+    <div>
+        <h1>Role Details</h1>
+    </div>
+    <div>
+        <a href="@Url.Action("AddRole", "Role")" class="btn btn-primary">Add New Role</a>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Role Id</th>
+            <th>Role Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>@role.roleId</td>
+                <td>@role.roleName</td>
+                <td>
+                    <a href="@Url.Action("EditRole", "Role", new { id = role.roleId })" class="btn btn-primary">Edit</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("DeleteRole", "Role", new { id = role.roleId })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
