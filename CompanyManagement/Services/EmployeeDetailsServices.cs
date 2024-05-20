@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CompanyManagement.Services
 {
+
+
     public class EmployeeDetailsServices : IEmployeeDetails
     {
         private Context db;
@@ -68,6 +70,8 @@ namespace CompanyManagement.Services
             model.empDob = row.empDob;
             model.empCountry = row.empCountry;
             model.empState = row.empState;
+            model.empEmail = row.empEmail;
+            model.empPassword = row.empPassword;
             return model;
         }
 
@@ -77,14 +81,28 @@ namespace CompanyManagement.Services
             EmployeeDetails employeeDetails = new EmployeeDetails();
             employeeDetails.empId = model.empId;
             employeeDetails.empName = model.empName;
+            employeeDetails.empEmail = model.empEmail;
             employeeDetails.empBloodGroup = model.empBloodGroup;
             employeeDetails.empCity = model.empCity;
             employeeDetails.empContact = model.empContact;
             employeeDetails.empCountry = model.empCountry;
             employeeDetails.empState = model.empState;
             employeeDetails.empDob = model.empDob;
+            employeeDetails.empPassword = model.empPassword;
             return employeeDetails;
         }
 
+        public async Task<EmployeeDetailsModel> GetEmployeeDetailsByEmail(string empEmail)
+        {
+            var row = await db.EmployeeDetails.Where(i => i.empEmail == empEmail).FirstOrDefaultAsync();
+            if (row == null) return null;
+            EmployeeDetailsModel model = EmployeeDetailsToModel(row);
+            return model;
+        }
+
+        public Task<EmployeesWithRole> GetAllEmployeesWithRoles()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

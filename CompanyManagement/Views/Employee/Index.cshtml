@@ -17,12 +17,15 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Email</th>
             <th>Date of Birth</th>
             <th>City</th>
             <th>State</th>
             <th>Country</th>
             <th>Blood Group</th>
             <th>Contact</th>
+            <th>Password</th>
+            <th>Role</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -33,12 +36,17 @@
             <tr>
                 <td>@employee.empId</td>
                 <td>@employee.empName</td>
+                <td>@employee.empEmail</td>
                 <td>@employee.empDob.ToString("yyyy-MM-dd")</td>
                 <td>@employee.empCity</td>
                 <td>@employee.empState</td>
                 <td>@employee.empCountry</td>
                 <td>@employee.empBloodGroup</td>
                 <td>@employee.empContact</td>
+                <td>@employee.empPassword</td>
+                <td>
+                    <button class="btn btn-info" onclick="showContent(@employee.empId)">Edit Role</button>
+                </td>
                 <td>
                     <a href="@Url.Action("EditEmployee", "Employee", new { id = employee.empId })" class="btn btn-primary">Edit</a>
                 </td>
@@ -50,3 +58,35 @@
     </tbody>
 </table>
 
+<div class="modal" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="roleModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Roles</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="roleName" class="control-label">Role name:</label>
+                    <input type="text" id="roleName" name="roleName" class="form-control" />
+                    <br />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Add Role</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showContent() {
+        var roles = $(this).data('roles');
+        $('roleName').text(roles);
+        $("#roleModal").show();
+
+    }
+</script>

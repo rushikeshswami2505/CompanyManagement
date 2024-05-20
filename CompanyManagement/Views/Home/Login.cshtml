@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "";
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <h1>Login</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h3>Login</h3>
+                <form id="emailForm" method="post" action="@Url.Action("Login","Home")">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="empEmail" placeholder="Enter email" required>
+                        @Html.ValidationMessage("password", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="empPassword" placeholder="Enter Password" required>
+                        @Html.ValidationMessage("password", new { @class = "text-danger" })
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

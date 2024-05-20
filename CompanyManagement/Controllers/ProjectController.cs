@@ -28,6 +28,7 @@ namespace CompanyManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProject(ProjectDetailsModel model)
         {
+            model.projectNumResource = 0;
             if (ModelState.IsValid)
             {
                 await projectDetailsServices.AddNewProject(model);

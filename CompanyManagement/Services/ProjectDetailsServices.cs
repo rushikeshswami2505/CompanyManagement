@@ -52,8 +52,14 @@ namespace CompanyManagement.Services
         {
             var existingRecord = await db.EmployeeProjectMaps.FirstOrDefaultAsync(e => e.empId == empId && e.projectId == projectId);
             if (existingRecord != null)  return;
-            EmployeeProjectMap employeeProjectMap = ValuesToEmployeeProjectMap(projectId,empId);
+            EmployeeProjectMap employeeProjectMap = ValuesToEmployeeProjectMap(projectId,empId);     
             await db.EmployeeProjectMaps.AddAsync(employeeProjectMap);
+            /*var project = await db.ProjectDetails.FindAsync(projectId);
+            if (project != null)
+            {
+                project.projectNumResource++;
+                db.Entry(project).State = EntityState.Modified;
+            }*/
             await db.SaveChangesAsync();
         }
 
@@ -93,6 +99,12 @@ namespace CompanyManagement.Services
                 await db.EmployeeProjectMaps.FirstOrDefaultAsync(i => i.projectId == projectId && i.empId == empId);
             if (employeeProjectMap == null) return;
             db.EmployeeProjectMaps.Remove(employeeProjectMap);
+            /*var project = await db.ProjectDetails.FindAsync(projectId);
+            if (project != null)
+            {
+                project.projectNumResource--;
+                db.Entry(project).State = EntityState.Modified;
+            }*/
             await db.SaveChangesAsync();
         }
     }

@@ -10,6 +10,8 @@ namespace CompanyManagement.Services
         Task EditEmployee(EmployeeDetailsModel model);
         Task<List<EmployeeDetails>> GetAllEmployees();
         Task<IEnumerable<EmployeeDetails>> GetAllEmployeesByProjectId(int id);
+        Task<EmployeesWithRole> GetAllEmployeesWithRoles();
+        Task<EmployeeDetailsModel> GetEmployeeDetailsByEmail(string empEmail);
         Task<EmployeeDetailsModel> GetEmployeeDetailsById(int id);
     }
 }

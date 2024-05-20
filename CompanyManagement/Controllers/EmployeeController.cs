@@ -15,6 +15,7 @@ namespace CompanyManagement.Controllers
         public async Task<IActionResult> Index()
         {
             var data = await employeeDetailsServices.GetAllEmployees();
+            /*var data = await employeeDetailsServices.GetAllEmployeesWithRoles();*/
             return View(data);
         }
 
@@ -55,5 +56,6 @@ namespace CompanyManagement.Controllers
             }
             return View(model);
         }
+        
     }
 }

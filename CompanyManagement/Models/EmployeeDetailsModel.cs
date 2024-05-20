@@ -12,6 +12,11 @@ namespace CompanyManagement.Models
         [StringLength(20, ErrorMessage = "Name should be less than 20 characters")]
         public string empName { get; set; }
 
+        [Required(ErrorMessage = "Employee Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email format")]
+        public string empEmail { get; set; }
+
+
         [Required(ErrorMessage = "Date of Birth is required")]
         [DataType(DataType.Date, ErrorMessage = "Invalid date format")]
         public DateTime empDob { get; set; }
@@ -35,5 +40,11 @@ namespace CompanyManagement.Models
         [Required(ErrorMessage = "Contact is required")]
         [StringLength(10, ErrorMessage = "Contact name should be up to 10 characters")]
         public string empContact { get; set; }
+
+        [Required(ErrorMessage = "Employee Password is required")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "Password must be at least 4 characters long")]
+        // [RegularExpression(@"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).+$", ErrorMessage = "Password must have at least one uppercase letter, one lowercase letter, one digit, and one special character")]
+        public string empPassword { get; set; }
+
     }
 }

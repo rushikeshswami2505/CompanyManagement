@@ -20,6 +20,11 @@
                 @Html.ValidationMessageFor(model => Model.empDob, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
+                <label for="empEmail" class="control-label">Employee Email:</label>
+                <input type="text" id="empEmail" name="empEmail" class="form-control" value="@Model.empEmail" />
+                @Html.ValidationMessageFor(model => Model.empEmail, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
                 <label for="empCity" class="control-label">City:</label>
                 <input type="text" id="empCity" name="empCity" class="form-control" value="@Model.empCity" />
                 @Html.ValidationMessageFor(model => Model.empCity, "", new { @class = "text-danger" })
@@ -43,6 +48,11 @@
                 <label for="empContact" class="control-label">Contact:</label>
                 <input type="text" id="empContact" name="empContact" class="form-control" value="@Model.empContact" />
                 @Html.ValidationMessageFor(model => Model.empContact, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="empPassword" class="control-label">Password:</label>
+                <input type="password" id="empPassword" name="empPassword" class="form-control" value="@Model.empPassword" />
+                @Html.ValidationMessageFor(model => Model.empPassword, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Save Edit</button>
