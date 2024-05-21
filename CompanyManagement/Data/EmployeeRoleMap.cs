@@ -7,6 +7,6 @@ namespace CompanyManagement.Data
         [Key]
         public int erId { get; set; }
         public int empId { get; set; }
-        public string roleId { get; set; }
+        public int roleId { get; set; }
     }
 }

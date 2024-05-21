@@ -7,15 +7,17 @@ namespace CompanyManagement.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeDetails employeeDetailsServices;
-        public EmployeeController(IEmployeeDetails employeeDetailsServices)
+        private readonly IRoleDetails roleDetailsServices;
+        public EmployeeController(IEmployeeDetails employeeDetailsServices,IRoleDetails roleDetailsServices)
         {
             this.employeeDetailsServices = employeeDetailsServices;
+            this.roleDetailsServices = roleDetailsServices;
         }
 
         public async Task<IActionResult> Index()
         {
-            var data = await employeeDetailsServices.GetAllEmployees();
-            /*var data = await employeeDetailsServices.GetAllEmployeesWithRoles();*/
+            // var data = await employeeDetailsServices.GetAllEmployees();
+            var data = await employeeDetailsServices.GetAllEmployeesWithRoles();
             return View(data);
         }
 
@@ -56,6 +58,40 @@ namespace CompanyManagement.Controllers
             }
             return View(model);
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> GetRolesByEmployeeId(int empId)
+        {
+            List<string> roles = await roleDetailsServices.GetRolesByEmployeeId(empId);
+            return Json(roles);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignRole(int empId, int roleId)
+        {
+            try
+            {
+                await roleDetailsServices.AssignRoleToEmployee(empId, roleId);
+                return Ok("Role assigned successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while assigning the role: " + ex.Message);
+            }
+        }
+        [HttpDelete]
+        public async Task<IActionResult> RemoveRole(int empId,int roleId)
+        {
+            try
+            {
+                await roleDetailsServices.RemoveRoleFromEmployee(empId, roleId);
+                return Ok("Role assigned successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while deleting the role: " + ex.Message);
+            }
+        }
+
     }
 }

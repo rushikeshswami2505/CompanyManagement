@@ -13,5 +13,6 @@ namespace CompanyManagement.Services
         Task<EmployeesWithRole> GetAllEmployeesWithRoles();
         Task<EmployeeDetailsModel> GetEmployeeDetailsByEmail(string empEmail);
         Task<EmployeeDetailsModel> GetEmployeeDetailsById(int id);
+        
     }
 }

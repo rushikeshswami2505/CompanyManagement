@@ -100,9 +100,14 @@ namespace CompanyManagement.Services
             return model;
         }
 
-        public Task<EmployeesWithRole> GetAllEmployeesWithRoles()
+        public async Task<EmployeesWithRole> GetAllEmployeesWithRoles()
         {
-            throw new NotImplementedException();
+            var data1 = await GetAllEmployees();
+            var data2 = await db.RoleDetails.ToListAsync();
+            EmployeesWithRole employeesWithRole = new EmployeesWithRole();
+            employeesWithRole.Employees = data1;
+            employeesWithRole.Roles = data2;
+            return employeesWithRole;
         }
     }
 }

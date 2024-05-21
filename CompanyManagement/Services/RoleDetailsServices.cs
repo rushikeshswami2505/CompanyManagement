@@ -61,5 +61,45 @@ namespace CompanyManagement.Services
             model.roleName = roleDetails.roleName;
             return model;
         }
+
+        public async Task<List<string>> GetRolesByEmployeeId(int empId)
+        {
+            var roleNames = (from rolemap in db.EmployeeRoleMaps
+                        join role in db.RoleDetails
+                        on rolemap.roleId equals role.roleId
+                        where rolemap.empId == empId
+                        select role.roleName).ToList();
+
+            //var roleIds = await db.EmployeeRoleMaps
+            //                      .Where(erm => erm.empId == empId)
+            //                      .Select(erm => erm.roleId)
+            //                      .ToListAsync();
+            //var roleNames = await db.RoleDetails
+            //                       .Where(rd => roleIds.Contains(rd.roleId))
+            //                       .Select(rd => rd.roleName)
+            //                       .ToListAsync();
+            return roleNames;
+        }
+
+        public async Task AssignRoleToEmployee(int empId, int roleId)
+        {
+            var existing = await db.EmployeeRoleMaps.FirstOrDefaultAsync(i=>i.empId == empId && i.roleId==roleId);
+            if(existing != null) return;
+            EmployeeRoleMap employeeRoleMap = new EmployeeRoleMap()
+            {
+                empId = empId,
+                roleId = roleId
+            };
+            await db.EmployeeRoleMaps.AddAsync(employeeRoleMap);
+            await db.SaveChangesAsync();
+        }
+
+        public async Task RemoveRoleFromEmployee(int empId, int roleId)
+        {
+            var row = await db.EmployeeRoleMaps.FirstOrDefaultAsync(i => i.empId == empId && i.roleId == roleId);
+            if (row == null) return;
+            db.EmployeeRoleMaps.Remove(row);
+            await db.SaveChangesAsync();
+        }
     }
 }

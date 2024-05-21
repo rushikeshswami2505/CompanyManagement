@@ -4,7 +4,7 @@ namespace CompanyManagement.Models
 {
     public class EmployeesWithRole
     {
-        public EmployeeDetailsModel Employee { get; set; }
+        public IEnumerable<EmployeeDetails> Employees { get; set; }
         public IEnumerable<RoleDetails> Roles { get; set; }
 
     }
