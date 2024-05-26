@@ -64,11 +64,11 @@ namespace CompanyManagement.Services
 
         public async Task<List<string>> GetRolesByEmployeeId(int empId)
         {
-            var roleNames = (from rolemap in db.EmployeeRoleMaps
+            var roleNames = await (from rolemap in db.EmployeeRoleMaps
                         join role in db.RoleDetails
                         on rolemap.roleId equals role.roleId
                         where rolemap.empId == empId
-                        select role.roleName).ToList();
+                        select role.roleName).ToListAsync();
 
             //var roleIds = await db.EmployeeRoleMaps
             //                      .Where(erm => erm.empId == empId)

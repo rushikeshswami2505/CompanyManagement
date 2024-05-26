@@ -8,12 +8,18 @@ namespace CompanyManagement.Controllers
     public class HomeController : Controller
     {   
         private readonly IEmployeeDetails employeeDetailsServices;
-        public HomeController(IEmployeeDetails employeeDetailsServices)
+        private readonly IRoleDetails roleDetailsServices;
+        public HomeController(IEmployeeDetails employeeDetailsServices,IRoleDetails roleDetailsServices)
         {
             this.employeeDetailsServices = employeeDetailsServices;
+            this.roleDetailsServices = roleDetailsServices;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var empId = HttpContext.Session.GetInt32("currentUserEmpId");
+            List<string> roles = await roleDetailsServices.GetRolesByEmployeeId((int)empId);
+            if (roles.Count == 1) HttpContext.Session.SetString("currentUserRole","Partial");
+            else HttpContext.Session.SetString("currentUserRole", "Full");
             return View();
         }
         public IActionResult Login()
@@ -30,6 +36,8 @@ namespace CompanyManagement.Controllers
                 {
                     if (user.empPassword == loginModel.empPassword)
                     {
+                        HttpContext.Session.SetInt32("currentUserEmpId",user.empId);
+                        HttpContext.Session.SetString("currentUserEmpEmail", user.empEmail);
                         return RedirectToAction("Index");
                     }
                     else

@@ -16,10 +16,27 @@ namespace CompanyManagement.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // var data = await employeeDetailsServices.GetAllEmployees();
-            var data = await employeeDetailsServices.GetAllEmployeesWithRoles();
-            return View(data);
+            var empId = HttpContext.Session.GetInt32("currentUserEmpId");
+            var viewModel = new EmployeesWithRole();
+            string currentUserRole = HttpContext.Session.GetString("currentUserRole");
+            if (currentUserRole == "Partial")
+            {
+                ViewBag.UserRole = "Partial";
+                var employeeData = await employeeDetailsServices.GetEmployeeDetailsById((int)empId);
+                viewModel.Employee = employeeData;
+            }
+            else
+            {
+                ViewBag.UserRole = "Full";
+                var data = await employeeDetailsServices.GetAllEmployeesWithRoles();
+                viewModel.Employees = data.Employees;
+                viewModel.Roles = data.Roles;
+            }
+
+            return View(viewModel);
         }
+
+
 
         public IActionResult AddEmployee() {
             return View();

@@ -4,90 +4,152 @@
 }
 
 <br />
-<div class="d-flex justify-content-between">
-    <div>
-        <h1>Employee Details</h1>
-    </div>
-    <div>
-        <a href="@Url.Action("AddEmployee", "Employee")" class="btn btn-primary">Add New Employee</a>
-    </div>
-</div>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Date of Birth</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Country</th>
-            <th>Blood Group</th>
-            <th>Contact</th>
-            <th>Password</th>
-            <th>Role</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var employee in Model.Employees)
-        {
-            <tr>
-                <td>@employee.empId</td>
-                <td>@employee.empName</td>
-                <td>@employee.empEmail</td>
-                <td>@employee.empDob.ToString("yyyy-MM-dd")</td>
-                <td>@employee.empCity</td>
-                <td>@employee.empState</td>
-                <td>@employee.empCountry</td>
-                <td>@employee.empBloodGroup</td>
-                <td>@employee.empContact</td>
-                <td>@employee.empPassword</td>
-                <td>
-                    <button class="btn btn-info" onclick="showContent(@employee.empId)">Edit Role</button>
-                </td>
-                <td>
-                    <a href="@Url.Action("EditEmployee", "Employee", new { id = employee.empId })" class="btn btn-primary">Edit</a>
-                </td>
-                <td>
-                    <a href="@Url.Action("DeleteEmployee", "Employee", new { id = employee.empId })" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<div class="modal" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="roleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="roleModalLabel">Roles</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <div id="displayRoles"></div>
-                <br />
-                <div class="form-group">
-                    <label for="roleSelect" class="control-label">Select Role:</label>
-                    <select id="roleSelect" class="form-control">
-                        @foreach (var role in Model.Roles)
-                        {
-                            <option value="@role.roleId">@role.roleName</option>
-                        }
-                    </select>
+@if (ViewBag.UserRole == "Partial")
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header justify-content-between">
+                        <div class="d-flex justify-content-between">
+                            <h2>Welcome @Model.Employee.empName!</h2>
+                            <a href="@Url.Action("EditEmployee", "Employee", new { id = Model.Employee.empId})" class="btn btn-primary">Edit</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>ID:</strong></div>
+                            <div class="col-sm-9">@Model.Employee.empId</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Name:</strong></div>
+                            <div class="col-sm-9">@Model.Employee.empName</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Email:</strong></div>
+                            <div class="col-sm-9">@Model.Employee.empEmail</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Date of Birth:</strong></div>
+                            <div class="col-sm-9">@Model.Employee.empDob.ToString("yyyy-MM-dd")</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>City:</strong></div>
+                            <div class="col-sm-9">@Model.Employee.empCity</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>State:</strong></div>
+                            <div class="col-sm-9">@Model.Employee.empState</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Country:</strong></div>
+                            <div class="col-sm-9">@Model.Employee.empCountry</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Blood Group:</strong></div>
+                            <div class="col-sm-9">@Model.Employee.empBloodGroup</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Contact:</strong></div>
+                            <div class="col-sm-9">@Model.Employee.empContact</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Password:</strong></div>
+                            <div class="col-sm-9">@Model.Employee.empPassword</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close</button>
-                <button type="button" class="btn btn-success" onclick="assignRole()">Add Role</button>
-                <button type="button" class="btn btn-danger" onclick="removeRole()">Remove Role</button>
             </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="d-flex justify-content-between">
+        <div>
+            <h1>Employee Details</h1>
+        </div>
+        <div>
+            <a href="@Url.Action("AddEmployee", "Employee")" class="btn btn-primary">Add New Employee</a>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Date of Birth</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Country</th>
+                <th>Blood Group</th>
+                <th>Contact</th>
+                <th>Password</th>
+                <th>Role</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model.Employees)
+            {
+                <tr>
+                    <td>@employee.empId</td>
+                    <td>@employee.empName</td>
+                    <td>@employee.empEmail</td>
+                    <td>@employee.empDob.ToString("yyyy-MM-dd")</td>
+                    <td>@employee.empCity</td>
+                    <td>@employee.empState</td>
+                    <td>@employee.empCountry</td>
+                    <td>@employee.empBloodGroup</td>
+                    <td>@employee.empContact</td>
+                    <td>@employee.empPassword</td>
+                    <td>
+                        <button class="btn btn-info" onclick="showContent(@employee.empId)">Edit Role</button>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("EditEmployee", "Employee", new { id = employee.empId })" class="btn btn-primary">Edit</a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("DeleteEmployee", "Employee", new { id = employee.empId })" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="modal" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="roleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="roleModalLabel">Roles</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <div id="displayRoles"></div>
+                    <br />
+                    <div class="form-group">
+                        <label for="roleSelect" class="control-label">Select Role:</label>
+                        <select id="roleSelect" class="form-control">
+                            @foreach (var role in Model.Roles)
+                            {
+                                <option value="@role.roleId">@role.roleName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close</button>
+                    <button type="button" class="btn btn-success" onclick="assignRole()">Add Role</button>
+                    <button type="button" class="btn btn-danger" onclick="removeRole()">Remove Role</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 <script>
     function showContent(empId) {
         $('#displayRoles').html("Fetching roles...");

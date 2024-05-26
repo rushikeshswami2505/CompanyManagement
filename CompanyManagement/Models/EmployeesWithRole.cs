@@ -6,6 +6,7 @@ namespace CompanyManagement.Models
     {
         public IEnumerable<EmployeeDetails> Employees { get; set; }
         public IEnumerable<RoleDetails> Roles { get; set; }
+        public EmployeeDetailsModel Employee { get; set; }
 
     }
 }
