@@ -49,6 +49,13 @@ namespace CompanyManagement.Services
             await db.SaveChangesAsync();
         }
 
+        public async Task<List<EmployeeLeave>> GetAllLeaveHistoryById(int empId)
+        {
+            return await (from leaveHistory in db.EmployeeLeaves
+                          where leaveHistory.empId == empId
+                          select leaveHistory).ToListAsync();
+        }
+
         private EmployeeLeave ModelToEmployeeLeave(EmployeeLeavesModel model)
         {
             EmployeeLeave employeeLeave = new EmployeeLeave();

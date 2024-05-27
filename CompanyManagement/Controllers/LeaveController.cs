@@ -16,8 +16,22 @@ namespace CompanyManagement.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var data = await leaveDetailsServices.GetAllLeaves();
+            LeavesDetailsWithHistory data = new LeavesDetailsWithHistory();
+            var userRole = HttpContext.Session.GetString("currentUserRole");
+            ViewBag.userRole = userRole;
+            if (userRole == "Employee" || userRole == "Junior" || userRole == "Senior" || userRole == "Manager")
+            {
+                var empId = HttpContext.Session.GetInt32("currentUserEmpId");
+                var leaveHistory = await employeeLeaveServices.GetAllLeaveHistoryById((int)empId);
+                data.LeavesHistory = leaveHistory;
+            }
+            else
+            {
+                var leaveDetails = await leaveDetailsServices.GetAllLeavesDetails();
+                data.LeavesDetails = leaveDetails;
+            }
             return View(data);
+
         }
 
         public IActionResult AddLeave()
@@ -62,7 +76,8 @@ namespace CompanyManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> ApplyLeave(EmployeeLeavesModel model)
         {
-            model.empId = 4;
+            var empId = HttpContext.Session.GetInt32("currentUserEmpId");
+            model.empId = (int)empId;
 
             if (ModelState.IsValid)
             {

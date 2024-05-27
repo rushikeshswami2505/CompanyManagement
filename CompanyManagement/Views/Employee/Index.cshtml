@@ -4,7 +4,7 @@
 }
 
 <br />
-@if (ViewBag.UserRole == "Partial")
+@if (ViewBag.userRole == "Employee" || ViewBag.userRole == "Senior" || ViewBag.userRole == "Junior" || ViewBag.userRole == "Manager")
 {
     <div class="container">
         <div class="row">
@@ -13,7 +13,7 @@
                     <div class="card-header justify-content-between">
                         <div class="d-flex justify-content-between">
                             <h2>Welcome @Model.Employee.empName!</h2>
-                            <a href="@Url.Action("EditEmployee", "Employee", new { id = Model.Employee.empId})" class="btn btn-primary">Edit</a>
+                            <a href="@Url.Action("EditEmployee", "Employee", new { id = Model.Employee.empId})" class="btn btn-primary fs-6">Edit</a>
                         </div>
                     </div>
                     <div class="card-body">

@@ -36,7 +36,7 @@ namespace CompanyManagement.Services
             await db.SaveChangesAsync();
         }
 
-        public async Task<List<LeaveDetails>> GetAllLeaves()
+        public async Task<List<LeaveDetails>> GetAllLeavesDetails()
         {
             return await db.LeaveDetails.ToListAsync();
         }

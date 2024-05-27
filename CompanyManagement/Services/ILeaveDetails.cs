@@ -8,7 +8,7 @@ namespace CompanyManagement.Services
         Task AddNewLeave(LeaveDetailsModel model);
         Task DeleteLeave(int id);
         Task EditLeave(LeaveDetailsModel model);
-        Task<List<LeaveDetails>> GetAllLeaves();
+        Task<List<LeaveDetails>> GetAllLeavesDetails();
         Task<LeaveDetailsModel> GetLeaveDetailsById(int id);
     }
 }

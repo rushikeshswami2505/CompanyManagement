@@ -21,7 +21,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    @if (TempData["userRole"]?.ToString()=="Full")
+                    @if (Context.Session.GetString("currentUserRole") == "CEO" || Context.Session.GetString("currentUserRole") == "HR" || Context.Session.GetString("currentUserRole") == "Director")
                     {
                         <li class="nav-item">
                             <a class="nav-link" href="@Url.Action("Index", "Employee")">Employees</a>
@@ -45,7 +45,7 @@
                             <a class="nav-link" href="@Url.Action("Index","Project")">Project</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index","Leave")">Leave History</a>
+                            <a class="nav-link" href="@Url.Action("Index","Leave")">Leaves History</a>
                         </li>
                     }
                 </ul>

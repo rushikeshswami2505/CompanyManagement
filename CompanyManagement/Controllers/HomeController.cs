@@ -14,12 +14,12 @@ namespace CompanyManagement.Controllers
             this.employeeDetailsServices = employeeDetailsServices;
             this.roleDetailsServices = roleDetailsServices;
         }
-        public async Task<IActionResult> Index()
+        public  IActionResult Index()
         {
-            var empId = HttpContext.Session.GetInt32("currentUserEmpId");
-            List<string> roles = await roleDetailsServices.GetRolesByEmployeeId((int)empId);
-            if (roles.Count == 1) HttpContext.Session.SetString("currentUserRole","Partial");
-            else HttpContext.Session.SetString("currentUserRole", "Full");
+            if (HttpContext.Session.GetInt32("currentUserEmpId") != null)
+            {
+                ViewBag.userRole = HttpContext.Session.GetString("currentUserRole");
+            }
             return View();
         }
         public IActionResult Login()
@@ -38,6 +38,16 @@ namespace CompanyManagement.Controllers
                     {
                         HttpContext.Session.SetInt32("currentUserEmpId",user.empId);
                         HttpContext.Session.SetString("currentUserEmpEmail", user.empEmail);
+                        string userRole = "Employee";
+                        List<string> roles = await roleDetailsServices.GetRolesByEmployeeId(user.empId);
+                        if (roles.Contains("Employee")) userRole = "Employee";
+                        if (roles.Contains("Junior")) userRole = "Junior";
+                        if (roles.Contains("Senior")) userRole = "Senior";
+                        if (roles.Contains("Manager")) userRole = "Manager";
+                        if (roles.Contains("Director")) userRole = "Director";
+                        if (roles.Contains("HR")) userRole = "HR";
+                        if (roles.Contains("CEO")) userRole = "CEO";
+                        HttpContext.Session.SetString("currentUserRole", userRole);
                         return RedirectToAction("Index");
                     }
                     else

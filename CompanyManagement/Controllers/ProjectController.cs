@@ -2,6 +2,7 @@
 using CompanyManagement.Models;
 using CompanyManagement.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace CompanyManagement.Controllers
 {
@@ -16,8 +17,19 @@ namespace CompanyManagement.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var data = await projectDetailsServices.GetAllProjects();
-            return View(data);
+            var userRole = HttpContext.Session.GetString("currentUserRole");
+            ViewBag.UserRole = userRole;
+            if (userRole == "Employee" || userRole == "Junior" || userRole == "Senior" || userRole == "Manager")
+            {
+                var empId =  HttpContext.Session.GetInt32("currentUserEmpId");
+                var data = await projectDetailsServices.GetProjectDetailsByEmployeeId((int)empId);
+                return View(data);
+            }
+            else
+            {
+                var data = await projectDetailsServices.GetAllProjects();
+                return View(data);
+            }
         }
 
         public IActionResult AddProject()
@@ -71,7 +83,7 @@ namespace CompanyManagement.Controllers
                 Project = project,
                 Employees = employees
             };
-
+            // ViewBag.userRole = HttpContext.Session.GetString("currentUserRole");
             return View(viewModel);
         }
         [HttpPost]

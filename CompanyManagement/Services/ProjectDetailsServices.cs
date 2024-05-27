@@ -107,5 +107,15 @@ namespace CompanyManagement.Services
             }*/
             await db.SaveChangesAsync();
         }
+
+        public Task<List<ProjectDetails>> GetProjectDetailsByEmployeeId(int empId)
+        {
+            var data = (from projectMap in db.EmployeeProjectMaps
+                   join project in db.ProjectDetails
+                   on projectMap.projectId equals project.projectId
+                   where projectMap.empId == empId
+                   select project).ToListAsync();
+            return data;
+        }
     }
 }

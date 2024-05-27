@@ -10,6 +10,7 @@ namespace CompanyManagement.Services
         Task DeleteProject(int id);
         Task EditProject(ProjectDetailsModel model);
         Task<List<ProjectDetails>> GetAllProjects();
+        Task<List<ProjectDetails>> GetProjectDetailsByEmployeeId(int empId);
         Task<ProjectDetailsModel> GetProjectDetailsById(int id);
         Task RemoveEmployeeFromProject(int projectId, int empId);
     }

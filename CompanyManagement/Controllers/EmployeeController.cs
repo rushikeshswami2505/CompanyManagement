@@ -18,16 +18,15 @@ namespace CompanyManagement.Controllers
         {
             var empId = HttpContext.Session.GetInt32("currentUserEmpId");
             var viewModel = new EmployeesWithRole();
-            string currentUserRole = HttpContext.Session.GetString("currentUserRole");
-            if (currentUserRole == "Partial")
+            var userRole = HttpContext.Session.GetString("currentUserRole");
+            ViewBag.UserRole = userRole;
+            if (userRole == "Employee" || userRole == "Junior" || userRole == "Senior" || userRole == "Manager")
             {
-                ViewBag.UserRole = "Partial";
                 var employeeData = await employeeDetailsServices.GetEmployeeDetailsById((int)empId);
                 viewModel.Employee = employeeData;
             }
             else
             {
-                ViewBag.UserRole = "Full";
                 var data = await employeeDetailsServices.GetAllEmployeesWithRoles();
                 viewModel.Employees = data.Employees;
                 viewModel.Roles = data.Roles;
