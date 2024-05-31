@@ -1,7 +1,7 @@
 ﻿using CompanyManagement.Data;
 using CompanyManagement.Models;
 
-namespace CompanyManagement.Services
+namespace CompanyManagement.Services.Interfaces
 {
     public interface IEmployeeDetails
     {
@@ -13,6 +13,6 @@ namespace CompanyManagement.Services
         Task<EmployeesWithRole> GetAllEmployeesWithRoles();
         Task<EmployeeDetailsModel> GetEmployeeDetailsByEmail(string empEmail);
         Task<EmployeeDetailsModel> GetEmployeeDetailsById(int id);
-        
+
     }
 }

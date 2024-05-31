@@ -1,5 +1,5 @@
 ﻿using CompanyManagement.Models;
-using CompanyManagement.Services;
+using CompanyManagement.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyManagement.Controllers

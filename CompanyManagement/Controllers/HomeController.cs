@@ -1,5 +1,5 @@
 using CompanyManagement.Models;
-using CompanyManagement.Services;
+using CompanyManagement.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -27,6 +27,11 @@ namespace CompanyManagement.Controllers
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            return View("Login");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel loginModel)
         {
@@ -38,6 +43,7 @@ namespace CompanyManagement.Controllers
                     {
                         HttpContext.Session.SetInt32("currentUserEmpId",user.empId);
                         HttpContext.Session.SetString("currentUserEmpEmail", user.empEmail);
+                        HttpContext.Session.SetString("currentUserName", user.empName);
                         string userRole = "Employee";
                         List<string> roles = await roleDetailsServices.GetRolesByEmployeeId(user.empId);
                         if (roles.Contains("Employee")) userRole = "Employee";

@@ -1,7 +1,7 @@
 ﻿using CompanyManagement.Data;
 using CompanyManagement.Models;
 
-namespace CompanyManagement.Services
+namespace CompanyManagement.Services.Interfaces
 {
     public interface IEmployeeLeave
     {

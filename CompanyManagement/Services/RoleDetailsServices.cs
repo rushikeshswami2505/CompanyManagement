@@ -1,5 +1,6 @@
 ﻿using CompanyManagement.Data;
 using CompanyManagement.Models;
+using CompanyManagement.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyManagement.Services
@@ -74,6 +75,7 @@ namespace CompanyManagement.Services
             //                      .Where(erm => erm.empId == empId)
             //                      .Select(erm => erm.roleId)
             //                      .ToListAsync();
+
             //var roleNames = await db.RoleDetails
             //                       .Where(rd => roleIds.Contains(rd.roleId))
             //                       .Select(rd => rd.roleName)

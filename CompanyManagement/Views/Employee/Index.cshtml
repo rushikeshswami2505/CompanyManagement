@@ -57,6 +57,10 @@
                             <div class="col-sm-3"><strong>Password:</strong></div>
                             <div class="col-sm-9">@Model.Employee.empPassword</div>
                         </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Role:</strong></div>
+                            <div class="col-sm-9">@ViewBag.userRole</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -152,7 +156,6 @@ else
 }
 <script>
     function showContent(empId) {
-        $('#displayRoles').html("Fetching roles...");
         $.ajax({
             url: '@Url.Action("GetRolesByEmployeeId", "Employee")',
             type: 'GET',

@@ -1,6 +1,6 @@
 ﻿using CompanyManagement.Data;
 using CompanyManagement.Models;
-using CompanyManagement.Services;
+using CompanyManagement.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyManagement.Controllers
@@ -23,6 +23,8 @@ namespace CompanyManagement.Controllers
             {
                 var empId = HttpContext.Session.GetInt32("currentUserEmpId");
                 var leaveHistory = await employeeLeaveServices.GetAllLeaveHistoryById((int)empId);
+                LeaveDetailsModel leaveInfoById = await leaveDetailsServices.GetLeaveDetailsByEmpId((int)empId);
+                if(leaveInfoById!=null) ViewBag.leaveInfo = leaveInfoById;
                 data.LeavesHistory = leaveHistory;
             }
             else
@@ -49,7 +51,7 @@ namespace CompanyManagement.Controllers
         }
         public async Task<IActionResult> EditLeave(int id)
         {
-            LeaveDetailsModel model = await leaveDetailsServices.GetLeaveDetailsById(id);
+            LeaveDetailsModel model = await leaveDetailsServices.GetLeaveDetailsByLeaveId(id);
             return View(model);
         }
 

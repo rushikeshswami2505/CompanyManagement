@@ -3,4 +3,75 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Welcome Back!</h1>
+@if (ViewBag.userRole == "Employee" || ViewBag.userRole == "Senior" || ViewBag.userRole == "Junior" || ViewBag.userRole == "Manager")
+{
+    <div class="row">
+        <div class="col-3 me-1 card text-white bg-primary mb-3" style="max-width: 18rem;">
+            <div class="card-header">Go to</div>
+            <a class="nav-link" href="@Url.Action("Index", "Employee")">
+                <div class="card-body">
+                    <h5 class="card-title">Profile <i class="bi bi-forward-fill"></i></h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-3 me-1 card text-white bg-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">Go to</div>
+            <a class="nav-link" href="@Url.Action("Index","Project")">
+                <div class="card-body">
+                    <h5 class="card-title">Project <i class="bi bi-forward-fill"></i></h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-3 me-1 card text-white bg-info mb-3" style="max-width: 18rem;">
+            <div class="card-header">Go to</div>
+            <a class="nav-link" href="@Url.Action("Index","Leave")">
+                <div class="card-body">
+                    <h5 class="card-title">Leaves History <i class="bi bi-forward-fill"></i></h5>
+                </div>
+            </a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-3 me-1 card text-white bg-primary mb-3" style="max-width: 18rem;">
+            <div class="card-header">Go to</div>
+            <a class="nav-link" href="@Url.Action("Index", "Employee")">
+                <div class="card-body">
+                    <h5 class="card-title">Employee <i class="bi bi-forward-fill"></i></h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-3 me-1 card text-white bg-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">Go to</div>
+            <a class="nav-link" href="@Url.Action("Index", "Project")">
+                <div class="card-body">
+                    <h5 class="card-title">Project <i class="bi bi-forward-fill"></i></h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-3 me-1 card text-white bg-info mb-3" style="max-width: 18rem;">
+            <div class="card-header">Go to</div>
+            <a class="nav-link" href="@Url.Action("Index", "Leave")">
+                <div class="card-body">
+                    <h5 class="card-title">Leave <i class="bi bi-forward-fill"></i></h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-3 me-1 card text-white bg-success mb-3" style="max-width: 18rem;">
+            <div class="card-header">Go to</div>
+            <a class="nav-link" href="@Url.Action("Index", "Role")">
+                <div class="card-body">
+                    <h5 class="card-title">Role <i class="bi bi-forward-fill"></i></h5>
+                </div>
+            </a>
+        </div>
+    </div>
+}

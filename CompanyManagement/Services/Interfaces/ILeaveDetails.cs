@@ -1,7 +1,7 @@
 ﻿using CompanyManagement.Data;
 using CompanyManagement.Models;
 
-namespace CompanyManagement.Services
+namespace CompanyManagement.Services.Interfaces
 {
     public interface ILeaveDetails
     {
@@ -9,6 +9,7 @@ namespace CompanyManagement.Services
         Task DeleteLeave(int id);
         Task EditLeave(LeaveDetailsModel model);
         Task<List<LeaveDetails>> GetAllLeavesDetails();
-        Task<LeaveDetailsModel> GetLeaveDetailsById(int id);
+        Task<LeaveDetailsModel> GetLeaveDetailsByEmpId(int empId);
+        Task<LeaveDetailsModel> GetLeaveDetailsByLeaveId(int id);
     }
 }

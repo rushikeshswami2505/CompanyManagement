@@ -1,5 +1,6 @@
 ﻿using CompanyManagement.Data;
 using CompanyManagement.Models;
+using CompanyManagement.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyManagement.Services

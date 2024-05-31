@@ -1,5 +1,6 @@
 ﻿using CompanyManagement.Data;
 using CompanyManagement.Models;
+using CompanyManagement.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyManagement.Services
@@ -41,9 +42,9 @@ namespace CompanyManagement.Services
             return await db.LeaveDetails.ToListAsync();
         }
 
-        public async Task<LeaveDetailsModel> GetLeaveDetailsById(int id)
+        public async Task<LeaveDetailsModel> GetLeaveDetailsByLeaveId(int leaveId)
         {
-            var row = await db.LeaveDetails.Where(i => i.leaveId == id).FirstOrDefaultAsync();
+            var row = await db.LeaveDetails.Where(i => i.leaveId == leaveId).FirstOrDefaultAsync();
             if (row == null) return null;
             LeaveDetailsModel model = LeaveDetailsToModel(row);
             return model;
@@ -66,6 +67,14 @@ namespace CompanyManagement.Services
             model.leavePaidRemain = leaveDetails.leavePaidRemain;
             model.leavePaidTaken = leaveDetails.leavePaidTaken;
             model.leaveLOP = leaveDetails.leaveLOP;
+            return model;
+        }
+
+        public async Task<LeaveDetailsModel> GetLeaveDetailsByEmpId(int empId)
+        {
+            var row = await db.LeaveDetails.Where(i => i.empId == empId).FirstOrDefaultAsync();
+            if (row == null) return null;
+            LeaveDetailsModel model = LeaveDetailsToModel(row);
             return model;
         }
     }

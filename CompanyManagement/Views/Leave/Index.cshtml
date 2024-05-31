@@ -6,16 +6,26 @@
 <br />
 @if(ViewBag.userRole == "Employee" || ViewBag.userRole == "Senior" || ViewBag.userRole == "Junior" || ViewBag.userRole == "Manager")
 {
+    
     <div class="d-flex justify-content-between">
         <div>
             <h1>Leave Details</h1>
         </div>
+        
         <div>
             <a href="@Url.Action("ApplyLeave", "Leave")" class="btn btn-primary">Apply For Leave</a>
         </div>
         @* <div>
     <a href="@Url.Action("AddLeave", "Leave")" class="btn btn-primary">Add New Leave</a>
     </div> *@
+    </div>
+    <div>
+        Leave Paid Remain : @ViewBag.leaveInfo.leavePaidRemain
+        <br />
+        Leave Paid Taken : @ViewBag.leaveInfo.leavePaidTaken
+        <br />
+        Leave on loss of pay : @ViewBag.leaveInfo.leaveLOP
+        <br />
     </div>
     <table class="table table-striped">
         <thead>

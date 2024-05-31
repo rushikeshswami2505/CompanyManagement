@@ -1,5 +1,6 @@
 using CompanyManagement.Data;
 using CompanyManagement.Services;
+using CompanyManagement.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,9 +10,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache(); // This adds a default in-memory implementation of IDistributedCache
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(120); // Set session timeout
-    options.Cookie.HttpOnly = true; // Make the session cookie HTTP only
-    options.Cookie.IsEssential = true; // Make the session cookie essential
+    options.IdleTimeout = TimeSpan.FromMinutes(120); 
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 var provider = builder.Services.BuildServiceProvider();
@@ -37,7 +38,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseSession(); // Enable session
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

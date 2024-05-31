@@ -1,11 +1,10 @@
 ﻿using CompanyManagement.Data;
 using CompanyManagement.Models;
+using CompanyManagement.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyManagement.Services
 {
-
-
     public class EmployeeDetailsServices : IEmployeeDetails
     {
         private Context db;
@@ -44,8 +43,8 @@ namespace CompanyManagement.Services
         public async Task<IEnumerable<EmployeeDetails>> GetAllEmployeesByProjectId(int projectId)
         {
             var employees = await (from emp in db.EmployeeDetails
-                                   join empProj in db.EmployeeProjectMaps on emp.empId equals empProj.empId
-                                   where empProj.projectId == projectId
+                                   join empMap in db.EmployeeProjectMaps on emp.empId equals empMap.empId
+                                   where empMap.projectId == projectId
                                    select emp).ToListAsync();
 
             return employees;

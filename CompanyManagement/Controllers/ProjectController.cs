@@ -1,6 +1,6 @@
 ﻿using CompanyManagement.Data;
 using CompanyManagement.Models;
-using CompanyManagement.Services;
+using CompanyManagement.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
